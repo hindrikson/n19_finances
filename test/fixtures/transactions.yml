@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  transaction_type: MyString
+  name: MyString
+  date: 2026-04-03
+  description: MyText
+  amount: 1.5
+  room: one
+  buffer: one
+
+two:
+  transaction_type: MyString
+  name: MyString
+  date: 2026-04-03
+  description: MyText
+  amount: 1.5
+  room: two
+  buffer: two
