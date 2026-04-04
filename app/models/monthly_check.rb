@@ -29,4 +29,10 @@ class MonthlyCheck < ApplicationRecord
     self.transactions_sum = (income - expense).round(2)
   end
 
+  def buffer_category_total(cat)
+    income = BufferEntry.where(category: cat, transaction_type: "income").sum(:amount)
+    expense = BufferEntry.where(category: cat, transaction_type: "expense").sum(:amount)
+    (income - expense).round(2)
+  end
+
 end
