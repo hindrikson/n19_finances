@@ -6,7 +6,7 @@ class MonthlyCheck < ApplicationRecord
   TRACKED_BUFFERS = (BufferCategories::CATEGORIES - %w[remaining_buffer]).freeze
 
   def difference
-    account_state - transactions_sum
+    (account_state - transactions_sum).round(2)
   end
 
   def balanced?
@@ -21,7 +21,7 @@ class MonthlyCheck < ApplicationRecord
   end
 
   def buffer_remaining
-    transactions_sum - buffers_sum
+    (transactions_sum - buffers_sum).round(2)
   end
 
   def allocate_remaining!
