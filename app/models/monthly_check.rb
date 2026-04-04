@@ -21,7 +21,7 @@ class MonthlyCheck < ApplicationRecord
   end
 
   def buffer_remaining
-    transactions_sum - buffers_sum
+    (transactions_sum - buffers_sum).round(2)
   end
 
   def allocate_remaining!
