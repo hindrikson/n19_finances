@@ -96,6 +96,7 @@ Transaction.create(
 # -----------------------------------------------------------------
 
 Transaction.create(
+  name: "other",
   transaction_type: "income",
   date: income_date,
   amount: 66.03,
@@ -103,6 +104,7 @@ Transaction.create(
 )
 
 Transaction.create(
+  name: "other",
   transaction_type: "income",
   date: income_date,
   amount: 82.58,
@@ -110,6 +112,7 @@ Transaction.create(
 )
 
 Transaction.create(
+  name: "other",
   transaction_type: "income",
   date: income_date,
   amount: 82.58,
@@ -117,6 +120,7 @@ Transaction.create(
 )
 
 Transaction.create(
+  name: "other",
   transaction_type: "income",
   date: income_date,
   amount: 14.16,

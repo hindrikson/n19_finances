@@ -13,10 +13,12 @@ module MonthlyCheckReport
       date: month.beginning_of_month..month.end_of_month,
       transaction_type: "income"
     )
+
     expense_transactions = Transaction.where(
       date: month.beginning_of_month..month.end_of_month,
       transaction_type: "expense"
     )
+
     buffer_entries_for_month = BufferEntry.where(
       date: month.beginning_of_month..month.end_of_month
     )
@@ -44,8 +46,7 @@ module MonthlyCheckReport
     md << "| Name | Date | Amount | Description |"
     md << "|------|------|--------|-------------|"
     income_transactions.each do |t|
-      description = annotated_description(t, income_transactions)
-      md << "| #{t.name} | #{t.date} | #{t.amount} | #{description} |"
+      md << "| #{t.name} | #{t.date} | #{t.amount} | #{t.description} |"
     end
     md << ""
     md << "**Total Income: #{income_transactions.sum(:amount)}**"
@@ -97,26 +98,4 @@ module MonthlyCheckReport
     puts "Report saved to #{path}"
   end
 
-  private
-
-  def annotated_description(transaction, all_income_transactions)
-    return transaction.description unless transaction.room.present?
-
-    room = transaction.room
-    total_paid = all_income_transactions
-      .select { |t| t.room_id == room.id }
-      .sum(&:amount)
-
-    marker = if (total_paid - room.due).abs < 0.01
-      "✅"
-    elsif total_paid < room.due
-      diff = (room.due - total_paid).round(2)
-      "🔴 Underpaid by #{diff}"
-    else
-      diff = (total_paid - room.due).round(2)
-      "🟡 Overpaid by #{diff}"
-    end
-
-    [transaction.description, marker].select(&:present?).join(" ")
-  end
 end
