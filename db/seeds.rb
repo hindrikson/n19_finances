@@ -8,14 +8,14 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Room.create(name: "room_1", due: 0.0, paid: 859.12, description: "")
-Room.create(name: "room_2", due: 0.0, paid: 626.62, description: "")
-Room.create(name: "room_3", due: 0.0, paid: 437.81, description: "")
-Room.create(name: "room_4", due: 0.0, paid: 522.67, description: "")
-Room.create(name: "room_5", due: 0.0, paid: 554.01, description: "")
-Room.create(name: "room_6", due: 0.0, paid: 473.41, description: "")
-Room.create(name: "room_7", due: 0.0, paid: 354.14, description: "")
-Room.create(name: "room_8", due: 0.0, paid: 491.32, description: "")
+Room.create(name: "room_1", due: 859.12, paid: 859.12, description: "")
+Room.create(name: "room_2", due: 626.62, paid: 626.62, description: "")
+Room.create(name: "room_3", due: 437.81, paid: 437.81, description: "")
+Room.create(name: "room_4", due: 522.67, paid: 522.67, description: "")
+Room.create(name: "room_5", due: 554.01, paid: 554.01, description: "")
+Room.create(name: "room_6", due: 473.41, paid: 473.41, description: "")
+Room.create(name: "room_7", due: 354.14, paid: 354.14, description: "")
+Room.create(name: "room_8", due: 491.32, paid: 491.32, description: "")
 
 # Create flatmates
 Flatmate.create(name: "Jonathan", room_id: 1)

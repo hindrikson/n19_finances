@@ -34,7 +34,7 @@ Transaction.create(
   date: income_date,
   amount: 66.03,
   room: room1,
-  description: "Korrektur Miete Dezember 25"
+  description: "Jonathan: Korrektur Miete Dezember 25"
 )
 
 Transaction.create(
@@ -42,7 +42,7 @@ Transaction.create(
   date: income_date,
   amount: 82.58,
   room: room1,
-  description: "Korrektur Miete Januar 26"
+  description: "Jonathan: Korrektur Miete Januar 26"
 )
 
 Transaction.create(
@@ -50,7 +50,7 @@ Transaction.create(
   date: income_date,
   amount: 82.58,
   room: room1,
-  description: "Korrektur Miete Februar 26"
+  description: "Jonathan: Korrektur Miete Februar 26"
 )
 
 # Room 2
@@ -111,10 +111,10 @@ Transaction.create(
 
 Transaction.create(
   transaction_type: "income",
-  name: "transfer from arce",
   date: income_date,
   amount: 14.16,
-  description: "correction Rent January and February Arce (7,08e)"
+  room: room3,
+  description: "Arce: correction Rent January and February Arce (7,08e)"
 )
 
 # ================================

@@ -12,21 +12,11 @@ class Transaction < ApplicationRecord
     account_fees
   ].freeze
 
-  BUFFER_CATEGORIES = %w[
-    water_buffer
-    electricity_buffer
-    oil_buffer
-    groceries_buffer
-    reserve_buffer
-    deposit_buffer
-    remaining_buffer
-  ].freeze
-
+  BUFFER_CATEGORIES = BufferCategories::CATEGORIES
   ALL_CATEGORIES = (EXPENSE_CATEGORIES + BUFFER_CATEGORIES).freeze
   TRANSACTION_TYPES = %w[income expense].freeze
 
   validates :transaction_type, inclusion: { in: TRANSACTION_TYPES }
-
   validates :category, inclusion: { in: ALL_CATEGORIES }, if: -> { category.present? }
 
   before_save :set_room_attributes

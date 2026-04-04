@@ -3,14 +3,7 @@ class MonthlyCheck < ApplicationRecord
 
   before_save :calculate_transactions_sum
 
-  TRACKED_BUFFERS = %w[
-    water_buffer
-    electricity_buffer
-    oil_buffer
-    groceries_buffer
-    reserve_buffer
-    deposit_buffer
-  ].freeze
+  TRACKED_BUFFERS = (BufferCategories::CATEGORIES - %w[remaining_buffer]).freeze
 
   def difference
     account_state - transactions_sum
@@ -67,7 +60,5 @@ class MonthlyCheck < ApplicationRecord
 
     self.transactions_sum = income - expense
   end
-
-
 
 end
