@@ -3,7 +3,7 @@ class MonthlyCheck < ApplicationRecord
 
   before_save :calculate_transactions_sum
 
-  TRACKED_BUFFERS = (BufferCategories::CATEGORIES - %w[remaining_buffer]).freeze
+  TRACKED_BUFFERS = TrackedBuffers::TRACKED_BUFFERS
 
   def difference
     (account_state - transactions_sum).round(2)

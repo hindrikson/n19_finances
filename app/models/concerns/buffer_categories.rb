@@ -9,3 +9,7 @@ module BufferCategories
     remaining_buffer
   ].freeze
 end
+
+module TrackedBuffers
+  TRACKED_BUFFERS = (BufferCategories::CATEGORIES - %w[remaining_buffer]).freeze
+end

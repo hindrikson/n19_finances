@@ -1,12 +1,5 @@
 module MonthlyCheckReport
-  TRACKED_BUFFERS = %w[
-    water_buffer
-    electricity_buffer
-    oil_buffer
-    groceries_buffer
-    reserve_buffer
-    deposit_buffer
-  ].freeze
+  TRACKED_BUFFERS = TrackedBuffers::TRACKED_BUFFERS
 
   def to_markdown
     income_transactions = Transaction.where(
@@ -49,7 +42,7 @@ module MonthlyCheckReport
       md << "| #{t.name} | #{t.date} | #{t.amount} | #{t.description} |"
     end
     md << ""
-    md << "**Total Income: #{income_transactions.sum(:amount)}**"
+    md << "**Total Income: #{income_transactions.sum(:amount).round(2)}**"
     md << ""
 
     # ================================
@@ -61,7 +54,7 @@ module MonthlyCheckReport
       md << "| #{t.name} | #{t.date} | #{t.amount} | #{t.category} | #{t.description} |"
     end
     md << ""
-    md << "**Total Expenses: #{expense_transactions.sum(:amount)}**"
+    md << "**Total Expenses: #{expense_transactions.sum(:amount).round(2)}**"
     md << ""
 
     # ================================
