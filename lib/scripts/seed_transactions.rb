@@ -32,25 +32,8 @@ Transaction.create(
 Transaction.create(
   transaction_type: "income",
   date: income_date,
-  amount: 66.03,
+  amount: 0.0,
   room: room1,
-  description: "Jonathan: Korrektur Miete Dezember 25"
-)
-
-Transaction.create(
-  transaction_type: "income",
-  date: income_date,
-  amount: 82.58,
-  room: room1,
-  description: "Jonathan: Korrektur Miete Januar 26"
-)
-
-Transaction.create(
-  transaction_type: "income",
-  date: income_date,
-  amount: 82.58,
-  room: room1,
-  description: "Jonathan: Korrektur Miete Februar 26"
 )
 
 # Room 2
@@ -109,11 +92,34 @@ Transaction.create(
   room: room8
 )
 
+# other income
+# -----------------------------------------------------------------
+
+Transaction.create(
+  transaction_type: "income",
+  date: income_date,
+  amount: 66.03,
+  description: "Jonathan: Korrektur Miete Dezember 25"
+)
+
+Transaction.create(
+  transaction_type: "income",
+  date: income_date,
+  amount: 82.58,
+  description: "Jonathan: Korrektur Miete Januar 26"
+)
+
+Transaction.create(
+  transaction_type: "income",
+  date: income_date,
+  amount: 82.58,
+  description: "Jonathan: Korrektur Miete Februar 26"
+)
+
 Transaction.create(
   transaction_type: "income",
   date: income_date,
   amount: 14.16,
-  room: room3,
   description: "Arce: correction Rent January and February Arce (7,08e)"
 )
 
