@@ -6,7 +6,7 @@ class MonthlyCheck < ApplicationRecord
   TRACKED_BUFFERS = TrackedBuffers::TRACKED_BUFFERS
 
   def difference
-    account_state - transactions_sum
+    (account_state - transactions_sum).round(2)
   end
 
   def balanced?
@@ -58,7 +58,7 @@ class MonthlyCheck < ApplicationRecord
                          .where(transaction_type: "expense")
                          .sum(:amount).round(2)
 
-    self.transactions_sum = income - expense
+    self.transactions_sum = (income - expense).round(2)
   end
 
 end
