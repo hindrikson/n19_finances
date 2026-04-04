@@ -14,10 +14,7 @@ class MonthlyCheck < ApplicationRecord
   end
 
   def buffers_sum
-    BufferEntry.where(
-      category: MonthlyCheckReport::TRACKED_BUFFERS,
-      date: month.beginning_of_month..month.end_of_month
-    ).sum(:amount).round(2)
+    BufferEntry.where(category: MonthlyCheckReport::TRACKED_BUFFERS).sum(:amount).round(2)
   end
 
   def buffer_remaining
@@ -50,14 +47,8 @@ class MonthlyCheck < ApplicationRecord
   private
 
   def calculate_transactions_sum
-    income = Transaction.where(date: month.beginning_of_month..month.end_of_month)
-                        .where(transaction_type: "income")
-                        .sum(:amount).round(2)
-
-    expense = Transaction.where(date: month.beginning_of_month..month.end_of_month)
-                         .where(transaction_type: "expense")
-                         .sum(:amount).round(2)
-
+    income = Transaction.where(transaction_type: "income").sum(:amount).round(2)
+    expense = Transaction.where(transaction_type: "expense").sum(:amount).round(2)
     self.transactions_sum = (income - expense).round(2)
   end
 

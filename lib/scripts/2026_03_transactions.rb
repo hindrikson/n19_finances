@@ -92,6 +92,15 @@ Transaction.create(
   room: room5
 )
 
+# Room 5 Tanja
+Transaction.create(
+  transaction_type: "income",
+  date: income_date,
+  amount: 554.01, # Done
+  room: room5,
+  description: "Tanja: DOUBLE March payment"
+)
+
 # Room 6 Viola
 Transaction.create(
   transaction_type: "income",
