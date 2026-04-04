@@ -23,7 +23,7 @@ Flatmate.create(name: "Maren", room_id: 1)
 
 Flatmate.create(name: "Ruda", room_id: 2)
 Flatmate.create(name: "Arce", room_id: 3)
-Flatmate.create(name: "Nona", room_id: 4)
+Flatmate.create(name: "Kimberly", room_id: 4)
 Flatmate.create(name: "Tanja", room_id: 5)
 Flatmate.create(name: "Viola", room_id: 6)
 Flatmate.create(name: "Lisa", room_id: 7)
