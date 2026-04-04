@@ -289,7 +289,6 @@ check = MonthlyCheck.create(
   month: income_date,
   account_state: 13726.89
 )
-check.allocate_remaining!
 check.save_markdown!
 
 

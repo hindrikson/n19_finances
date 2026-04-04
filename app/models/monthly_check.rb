@@ -21,29 +21,6 @@ class MonthlyCheck < ApplicationRecord
     (transactions_sum - buffers_sum).round(2)
   end
 
-  def allocate_remaining!
-    unless balanced?
-      puts "Monthly check is not balanced. Difference: #{difference}"
-      return
-    end
-
-    if buffer_remaining == 0
-      puts "Buffers already match transactions sum. Nothing to allocate."
-      return
-    end
-
-    BufferEntry.create(
-      transaction_type: buffer_remaining > 0 ? "income" : "expense",
-      name: "remaining_buffer",
-      date: month,
-      amount: buffer_remaining.abs,
-      category: "remaining_buffer",
-      description: "Auto allocated remaining for #{month.strftime("%B %Y")}"
-    )
-
-    puts "Allocated #{buffer_remaining} to remaining_buffer for #{month.strftime("%B %Y")}"
-  end
-
   private
 
   def calculate_transactions_sum

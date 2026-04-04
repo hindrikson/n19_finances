@@ -72,12 +72,13 @@ module MonthlyCheckReport
     md << ""
     md << "| Category | Total |"
     md << "|----------|-------|"
-    (TRACKED_BUFFERS + ["remaining_buffer"]).each do |cat|
+    TRACKED_BUFFERS.each do |cat|
       total = BufferEntry.where(category: cat).sum(:amount).round(2)
       md << "| #{cat} | #{total} |"
     end
+    md << "| remaining_buffer | #{buffer_remaining} |"
     md << ""
-    md << "**Total Buffers: #{BufferEntry.sum(:amount)}**"
+    md << "**Total Buffers: #{BufferEntry.sum(:amount).round(2)}**"
     md << ""
 
     md.join("\n")
