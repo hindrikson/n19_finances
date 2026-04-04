@@ -76,12 +76,15 @@ module MonthlyCheckReport
       md << "| #{cat} | #{buffer_category_total(cat)} |"
     end
     md << ""
-    md << "| remaining_buffer | #{buffer_remaining} |"
+
     total_buffers = (
       BufferEntry.where(category: TRACKED_BUFFERS, transaction_type: "income").sum(:amount) -
       BufferEntry.where(category: TRACKED_BUFFERS, transaction_type: "expense").sum(:amount)
     ).round(2)
     total_with_remainder = (total_buffers + buffer_remaining).round(2)
+
+    md << "**Remainder: #{buffer_remaining}**"
+    md << ""
     md << "**Total Buffers: #{total_buffers}**"
     md << ""
     md << "**Total Buffers + Remainder: #{total_with_remainder}**"
