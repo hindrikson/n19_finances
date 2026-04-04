@@ -75,8 +75,8 @@ module MonthlyCheckReport
     TRACKED_BUFFERS.each do |cat|
       md << "| #{cat} | #{buffer_category_total(cat)} |"
     end
-    md << "| remaining_buffer | #{buffer_remaining} |"
     md << ""
+    md << "| remaining_buffer | #{buffer_remaining} |"
     total_buffers = (
       BufferEntry.where(category: TRACKED_BUFFERS, transaction_type: "income").sum(:amount) -
       BufferEntry.where(category: TRACKED_BUFFERS, transaction_type: "expense").sum(:amount)
