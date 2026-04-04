@@ -13,12 +13,10 @@ module MonthlyCheckReport
       date: month.beginning_of_month..month.end_of_month,
       transaction_type: "income"
     )
-
     expense_transactions = Transaction.where(
       date: month.beginning_of_month..month.end_of_month,
       transaction_type: "expense"
     )
-
     buffer_entries_for_month = BufferEntry.where(
       date: month.beginning_of_month..month.end_of_month
     )
@@ -43,10 +41,11 @@ module MonthlyCheckReport
     # ================================
     md << "## Income Transactions"
     md << ""
-    md << "| Name | Date | Amount | Description |"
-    md << "|------|------|--------|-------------|"
+    md << "| Name | Date | Amount | Status | Description |"
+    md << "|------|------|--------|--------|-------------|"
     income_transactions.each do |t|
-      md << "| #{t.name} | #{t.date} | #{t.amount} | #{t.description} |"
+      status = payment_status(t, income_transactions)
+      md << "| #{t.name} | #{t.date} | #{t.amount} | #{status} | #{t.description} |"
     end
     md << ""
     md << "**Total Income: #{income_transactions.sum(:amount)}**"
@@ -98,4 +97,24 @@ module MonthlyCheckReport
     puts "Report saved to #{path}"
   end
 
+  private
+
+  def payment_status(transaction, all_income_transactions)
+    return "" unless transaction.room.present?
+
+    room = transaction.room
+    total_paid = all_income_transactions
+      .select { |t| t.room_id == room.id }
+      .sum(&:amount)
+
+    if (total_paid - room.due).abs < 0.01
+      "✅ Paid exactly"
+    elsif total_paid < room.due
+      diff = (room.due - total_paid).round(2)
+      "🔴 Underpaid by #{diff}"
+    else
+      diff = (total_paid - room.due).round(2)
+      "🟡 Overpaid by #{diff}"
+    end
+  end
 end

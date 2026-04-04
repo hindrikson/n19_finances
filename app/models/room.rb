@@ -6,10 +6,10 @@ class Room < ApplicationRecord
     flatmate_names = flatmates.map(&:name).join(", ")
     
     if amount > due
-      overpaid = amount - due
+      overpaid = (amount - due).round(2)
       "#{flatmate_names}: Overpaid by #{overpaid}"
     elsif amount < due
-      underpaid = due - amount
+      underpaid = (due - amount).round(2)
       "#{flatmate_names}: Underpaid by #{underpaid}"
     else
       "#{flatmate_names}: Paid exactly"
