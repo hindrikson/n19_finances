@@ -6,7 +6,7 @@ class MonthlyCheck < ApplicationRecord
   TRACKED_BUFFERS = TrackedBuffers::TRACKED_BUFFERS
 
   def difference
-    (account_state - transactions_sum).round(2)
+    account_state - transactions_sum
   end
 
   def balanced?
@@ -17,11 +17,11 @@ class MonthlyCheck < ApplicationRecord
     BufferEntry.where(
       category: MonthlyCheckReport::TRACKED_BUFFERS,
       date: month.beginning_of_month..month.end_of_month
-    ).sum(:amount)
+    ).sum(:amount).round(2)
   end
 
   def buffer_remaining
-    (transactions_sum - buffers_sum).round(2)
+    transactions_sum - buffers_sum.round(2)
   end
 
   def allocate_remaining!
@@ -52,11 +52,11 @@ class MonthlyCheck < ApplicationRecord
   def calculate_transactions_sum
     income = Transaction.where(date: month.beginning_of_month..month.end_of_month)
                         .where(transaction_type: "income")
-                        .sum(:amount)
+                        .sum(:amount).round(2)
 
     expense = Transaction.where(date: month.beginning_of_month..month.end_of_month)
                          .where(transaction_type: "expense")
-                         .sum(:amount)
+                         .sum(:amount).round(2)
 
     self.transactions_sum = income - expense
   end

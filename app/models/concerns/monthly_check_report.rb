@@ -42,7 +42,7 @@ module MonthlyCheckReport
       md << "| #{t.name} | #{t.date} | #{t.amount} | #{t.description} |"
     end
     md << ""
-    md << "**Total Income: #{income_transactions.sum(:amount).round(2)}**"
+    md << "**Total Income: #{income_transactions.sum(:amount)}**"
     md << ""
 
     # ================================
@@ -54,7 +54,7 @@ module MonthlyCheckReport
       md << "| #{t.name} | #{t.date} | #{t.amount} | #{t.category} | #{t.description} |"
     end
     md << ""
-    md << "**Total Expenses: #{expense_transactions.sum(:amount).round(2)}**"
+    md << "**Total Expenses: #{expense_transactions.sum(:amount)}**"
     md << ""
 
     # ================================
