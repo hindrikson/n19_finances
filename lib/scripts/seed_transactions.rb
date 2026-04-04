@@ -214,7 +214,7 @@ BufferEntry.create(
   transaction_type: "income",
   name: "oil_buffer",
   date: income_date,
-  amount: 400.0,
+  amount: 4810.00,
   category: "oil_buffer",
   description: "default payment"
 )
@@ -223,7 +223,7 @@ BufferEntry.create(
   transaction_type: "income",
   name: "groceries_buffer",
   date: income_date,
-  amount: 80.0,
+  amount: 790.0,
   category: "groceries_buffer",
   description: "default payment"
 )
@@ -232,7 +232,7 @@ BufferEntry.create(
   transaction_type: "income",
   name: "reserve_buffer",
   date: income_date,
-  amount: 80.0,
+  amount: 3500.0,
   category: "reserve_buffer",
   description: "default payment"
 )
@@ -250,7 +250,7 @@ BufferEntry.create(
   transaction_type: "income",
   name: "electricity_buffer",
   date: income_date,
-  amount: 0.0,
+  amount: 339.0,
   category: "electricity_buffer",
   description: "default payment"
 )
@@ -259,7 +259,7 @@ BufferEntry.create(
   transaction_type: "income",
   name: "water_buffer",
   date: income_date,
-  amount: 0.0,
+  amount: 134.0,
   category: "water_buffer",
   description: "default payment"
 )
