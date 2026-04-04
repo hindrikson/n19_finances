@@ -7,12 +7,12 @@ class Room < ApplicationRecord
     
     if amount > due
       overpaid = amount - due
-      "#{flatmate_names} | Overpaid by #{overpaid}"
+      "#{flatmate_names}: Overpaid by #{overpaid}"
     elsif amount < due
       underpaid = due - amount
-      "#{flatmate_names} | Underpaid by #{underpaid}"
+      "#{flatmate_names}: Underpaid by #{underpaid}"
     else
-      "#{flatmate_names} | Paid exactly"
+      "#{flatmate_names}: Paid exactly"
     end
   end
 end
