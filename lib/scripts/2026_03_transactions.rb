@@ -1,5 +1,16 @@
 # Run with: rails runner lib/scripts/seed_transactions.rb
 
+# MONTH
+month = 3
+income_date = Date.new(2026, month, 10)
+expense_date = Date.new(2026, month, 15)
+
+# NEW flatmates
+ActiveRecord::Base.transaction do
+  Flatmate.find_by(room_id: 4).destroy # Remove Kimberly
+  Flatmate.create!(name: "Nona", room_id: 4)
+end
+
 # Room transactions
 room1 = Room.find_by(name: "room_1") # Jonathan, Maren
 room2 = Room.find_by(name: "room_2") # Ruda
@@ -10,33 +21,37 @@ room6 = Room.find_by(name: "room_6") # Viola
 room7 = Room.find_by(name: "room_7") # Lisa
 room8 = Room.find_by(name: "room_8") # Ronny
 
-income_date = Date.new(2026, 3, 10)
-expense_date = Date.new(2026, 3, 15)
-
-# ================================
-# Account Initial state
-# ================================
-Transaction.create(
-  transaction_type: "income",
-  date: income_date,
-  amount: 14759.52,
-  description: "Account state of January"
-)
-
 # ================================
 # INCOME TRANSACTIONS
 # ================================
 
 # ---- Room income transactions ----
-# Room 1
+# Room 1 Jonathan
 Transaction.create(
   transaction_type: "income",
   date: income_date,
-  amount: 0.0,
+  amount: 699.12,
   room: room1,
 )
 
-# Room 2
+# Room 1 Maren
+Transaction.create(
+  transaction_type: "income",
+  date: income_date,
+  amount: 160.0,
+  room: room1,
+)
+
+# Room 1 Maren
+Transaction.create(
+  transaction_type: "income",
+  date: income_date,
+  amount: 160.0,
+  room: room1,
+  description: "Maren: DOUBLE payment in March"
+)
+
+# Room 2 Ruda
 Transaction.create(
   transaction_type: "income",
   date: income_date,
@@ -44,15 +59,15 @@ Transaction.create(
   room: room2
 )
 
-# Room 3
+# Room 3 Arce
 Transaction.create(
   transaction_type: "income",
   date: income_date,
-  amount: 430.73,
+  amount: 437.81,
   room: room3
 )
 
-# Room 4
+# Room 4 Nona
 Transaction.create(
   transaction_type: "income",
   date: income_date,
@@ -60,15 +75,24 @@ Transaction.create(
   room: room4
 )
 
-# Room 5
+# Room 4 Nona
 Transaction.create(
   transaction_type: "income",
   date: income_date,
-  amount: 0.0, # Done
+  amount: 522.67,
+  room: room4,
+  description: "Nona: DOUBLE March payment"
+)
+
+# Room 5 Tanja
+Transaction.create(
+  transaction_type: "income",
+  date: income_date,
+  amount: 554.01, # Done
   room: room5
 )
 
-# Room 6
+# Room 6 Viola
 Transaction.create(
   transaction_type: "income",
   date: income_date,
@@ -76,7 +100,7 @@ Transaction.create(
   room: room6
 )
 
-# Room 7
+# Room 7 Lisa
 Transaction.create(
   transaction_type: "income",
   date: income_date,
@@ -84,7 +108,7 @@ Transaction.create(
   room: room7
 )
 
-# Room 8 (Ronny)
+# Room 8 Ronny
 Transaction.create(
   transaction_type: "income",
   date: income_date,
@@ -96,45 +120,25 @@ Transaction.create(
 # -----------------------------------------------------------------
 
 Transaction.create(
-  name: "other",
+  name: "deposit",
   transaction_type: "income",
   date: income_date,
-  amount: 66.03,
-  room: room1,
-  description: "Jonathan: Korrektur Miete Dezember 25"
+  amount: 726,
+  description: "Nona: deposit"
 )
 
 Transaction.create(
-  name: "other",
+  name: "electrcity payback",
   transaction_type: "income",
+  category: "electricity_buffer",
   date: income_date,
-  amount: 82.58,
-  room: room1,
-  description: "Jonathan: Korrektur Miete Januar 26"
-)
-
-Transaction.create(
-  name: "other",
-  transaction_type: "income",
-  date: income_date,
-  amount: 82.58,
-  room: room1,
-  description: "Jonathan: Korrektur Miete Februar 26"
-)
-
-Transaction.create(
-  name: "other",
-  transaction_type: "income",
-  date: income_date,
-  amount: 14.16,
-  room: room3,
-  description: "Arce: correction Rent January and February Arce (7,08e)"
+  amount: 400,
+  description: "Qcells: payback"
 )
 
 # ================================
 # EXPENSES TRANSACTIONS
 # ================================
-
 
 # water (RheinEnergie)
 Transaction.create(
@@ -154,6 +158,16 @@ Transaction.create(
   date: expense_date,
   amount: 54.0,
   description: "Maren: internet Telekom"
+)
+
+# GEZ Rundfunk
+Transaction.create(
+  transaction_type: "expense",
+  name: "gez",
+  category: "gez",
+  date: expense_date,
+  amount: 55.08,
+  description: "Rundfunk (GEZ) fee"
 )
 
 # wash machine (Jonathan: Leasing of the wash machine)
@@ -196,6 +210,17 @@ Transaction.create(
   description: "rent: Kai und Dirk Hahnheiser"
 )
 
+# rent (rent: Kai und Dirk Hannheiser
+Transaction.create(
+  transaction_type: "expense",
+  name: "rent",
+  category: "rent",
+  date: expense_date,
+  amount: 3335.0,
+  description: "rent: DOUBLE Kai und Dirk Hahnheiser "
+)
+
+# accout fees
 Transaction.create(
   transaction_type: "expense",
   name: "account_fees",
@@ -204,6 +229,17 @@ Transaction.create(
   amount: 3.80,
   description: "account fees"
 )
+
+# Splitwise
+Transaction.create(
+  transaction_type: "expense",
+  name: "groceries_buffer",
+  category: "groceries_buffer",
+  date: expense_date,
+  amount: 96.99,
+  description: "Hannes groceries"
+)
+
 
 # IGNORE THE ENTRIES BELOW
 # ================================
@@ -214,7 +250,7 @@ BufferEntry.create(
   transaction_type: "income",
   name: "oil_buffer",
   date: income_date,
-  amount: 4810.00,
+  amount: 400.00,
   category: "oil_buffer",
   description: "default payment"
 )
@@ -223,7 +259,7 @@ BufferEntry.create(
   transaction_type: "income",
   name: "groceries_buffer",
   date: income_date,
-  amount: 790.0,
+  amount: 80.0,
   category: "groceries_buffer",
   description: "default payment"
 )
@@ -232,35 +268,8 @@ BufferEntry.create(
   transaction_type: "income",
   name: "reserve_buffer",
   date: income_date,
-  amount: 3500.0,
+  amount: 80.0,
   category: "reserve_buffer",
-  description: "default payment"
-)
-
-BufferEntry.create(
-  transaction_type: "income",
-  name: "deposit_buffer",
-  date: income_date,
-  amount: 0.0,
-  category: "deposit_buffer",
-  description: "default payment"
-)
-
-BufferEntry.create(
-  transaction_type: "income",
-  name: "electricity_buffer",
-  date: income_date,
-  amount: 339.0,
-  category: "electricity_buffer",
-  description: "default payment"
-)
-
-BufferEntry.create(
-  transaction_type: "income",
-  name: "water_buffer",
-  date: income_date,
-  amount: 134.0,
-  category: "water_buffer",
   description: "default payment"
 )
 
@@ -269,7 +278,7 @@ BufferEntry.create(
 # ================================
 check = MonthlyCheck.create(
   month: income_date,
-  account_state: 14217.97
+  account_state: 13726.89
 )
 check.allocate_remaining!
 check.save_markdown!

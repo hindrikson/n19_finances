@@ -14,5 +14,6 @@ class Room < ApplicationRecord
     else
       "✅ #{flatmate_names}: Paid exactly"
     end
+
   end
 end
