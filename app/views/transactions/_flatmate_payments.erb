@@ -1,0 +1,14 @@
+<h2>Rent Income</h2>
+
+<%= form_with url: transactions_path, method: :post do |f| %>
+  <% Flatmate.all.each do |flatmate| %>
+    <div>
+      <strong><%= flatmate.name %></strong> — <%= flatmate.room.name %> (Due: <%= flatmate.room.due %>)
+
+      <input type="number" step="0.01" name="payments[<%= flatmate.id %>][amount]" value="<%= flatmate.room.due %>" />
+      <input type="date" name="payments[<%= flatmate.id %>][date]" value="<%= Date.today %>" />
+    </div>
+  <% end %>
+
+  <%= f.submit "Save All" %>
+<% end %>

@@ -1,7 +1,15 @@
-<% if params[:category].present? %>
-  <%= render "form" %>
+<% if params[:income_source] == "rent" %>
+  <%= render "flatmate_payments" %>
+
+<% elsif params[:income_source] == "other" %>
+  <%= render "other_income_form" %>
+
+<% elsif params[:transaction_type] == "income" %>
+  <%= render "select_income_source" %>
+
 <% elsif params[:transaction_type].present? %>
   <%= render "select_category" %>
+
 <% else %>
   <%= render "select_type" %>
 <% end %>
