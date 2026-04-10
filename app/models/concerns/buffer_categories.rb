@@ -6,10 +6,5 @@ module BufferCategories
     groceries_buffer
     reserve_buffer
     deposit_buffer
-    remaining_buffer
   ].freeze
-end
-
-module TrackedBuffers
-  TRACKED_BUFFERS = (BufferCategories::CATEGORIES - %w[remaining_buffer]).freeze
 end

@@ -1,5 +1,5 @@
 module MonthlyCheckReport
-  TRACKED_BUFFERS = TrackedBuffers::TRACKED_BUFFERS
+  BUFFER_CATEGORIES = BufferCategories::CATEGORIES
 
   def to_markdown
     income_transactions = Transaction.where(
@@ -72,14 +72,14 @@ module MonthlyCheckReport
     md << ""
     md << "| Category | Total |"
     md << "|----------|-------|"
-    TRACKED_BUFFERS.each do |cat|
+    BUFFER_CATEGORIES.each do |cat|
       md << "| #{cat} | #{buffer_category_total(cat)} |"
     end
     md << ""
 
     total_buffers = (
-      BufferEntry.where(category: TRACKED_BUFFERS, transaction_type: "income").sum(:amount) -
-      BufferEntry.where(category: TRACKED_BUFFERS, transaction_type: "expense").sum(:amount)
+      BufferEntry.where(category: BUFFER_CATEGORIES, transaction_type: "income").sum(:amount) -
+      BufferEntry.where(category: BUFFER_CATEGORIES, transaction_type: "expense").sum(:amount)
     ).round(2)
     total_with_remainder = (total_buffers + buffer_remaining).round(2)
 

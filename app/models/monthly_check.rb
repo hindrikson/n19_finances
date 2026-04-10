@@ -3,7 +3,7 @@ class MonthlyCheck < ApplicationRecord
 
   before_save :calculate_transactions_sum
 
-  TRACKED_BUFFERS = TrackedBuffers::TRACKED_BUFFERS
+  BUFFER_CATEGORIES = BufferCategories::CATEGORIES
 
   def difference
     (account_state - transactions_sum).round(2)
@@ -14,8 +14,8 @@ class MonthlyCheck < ApplicationRecord
   end
 
   def buffers_sum
-    income = BufferEntry.where(category: TRACKED_BUFFERS, transaction_type: "income").sum(:amount)
-    expense = BufferEntry.where(category: TRACKED_BUFFERS, transaction_type: "expense").sum(:amount)
+    income = BufferEntry.where(category: BUFFER_CATEGORIES, transaction_type: "income").sum(:amount)
+    expense = BufferEntry.where(category: BUFFER_CATEGORIES, transaction_type: "expense").sum(:amount)
     (income - expense).round(2)
   end
 
