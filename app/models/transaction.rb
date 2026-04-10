@@ -1,17 +1,7 @@
 class Transaction < ApplicationRecord
   belongs_to :room, optional: true
 
-  EXPENSE_CATEGORIES = %w[
-    water_bill
-    house_electricity_bill
-    flat_electricity_bill
-    internet_bill
-    wash_machine_bill
-    rent
-    gez
-    account_fees
-  ].freeze
-
+  EXPENSE_CATEGORIES = ExpenseCategories::CATEGORIES
   BUFFER_CATEGORIES = BufferCategories::CATEGORIES
   ALL_CATEGORIES = (EXPENSE_CATEGORIES + BUFFER_CATEGORIES).freeze
   TRANSACTION_TYPES = %w[income expense].freeze
