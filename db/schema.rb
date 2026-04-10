@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_03_204916) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_10_100915) do
   create_table "buffer_entries", force: :cascade do |t|
     t.float "amount"
     t.string "category"
@@ -53,6 +53,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_03_204916) do
     t.datetime "created_at", null: false
     t.date "date"
     t.text "description"
+    t.string "flatmate"
     t.string "name"
     t.integer "room_id"
     t.string "transaction_type"
