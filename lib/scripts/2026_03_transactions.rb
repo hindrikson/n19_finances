@@ -2,8 +2,9 @@
 
 # MONTH
 month = 3
-income_date = Date.new(2026, month, 10)
-expense_date = Date.new(2026, month, 15)
+year = 2026
+income_date = Date.new(year, month, 10)
+expense_date = Date.new(year, month, 15)
 
 # NEW flatmates
 ActiveRecord::Base.transaction do
