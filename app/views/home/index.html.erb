@@ -1,0 +1,41 @@
+<div class="home-container">
+  <div class="home-header">
+    <p class="home-subtitle">Dashboard</p>
+    <h1>Home</h1>
+  </div>
+
+  <div class="home-nav">
+    <%= link_to new_transaction_path, class: "nav-card" do %>
+      <div class="nav-card-content">
+        <div class="nav-card-icon nav-card-icon--blue">
+          <%# your icon here %>
+        </div>
+        <div>
+          <p class="nav-card-title">Enter transaction</p>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to transactions_path, class: "nav-card" do %>
+      <div class="nav-card-content">
+        <div class="nav-card-icon nav-card-icon--orange">
+          <%# your icon here %>
+        </div>
+        <div>
+          <p class="nav-card-title">View transactions</p>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to monthly_check_path(MonthlyCheck.last), class: "nav-card" do %>
+      <div class="nav-card-content">
+        <div class="nav-card-icon nav-card-icon--green">
+          <%# your icon here %>
+        </div>
+        <div>
+          <p class="nav-card-title">Monthly report</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

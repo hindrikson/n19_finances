@@ -23,6 +23,10 @@ class MonthlyCheck < ApplicationRecord
     (transactions_sum - buffers_sum).round(2)
   end
 
+  def to_param
+    month.strftime("%Y-%m")
+  end
+
   private
 
   def calculate_transactions_sum
@@ -36,5 +40,6 @@ class MonthlyCheck < ApplicationRecord
     expense = BufferEntry.where(category: cat, transaction_type: "expense").sum(:amount)
     (income - expense).round(2)
   end
+
 
 end

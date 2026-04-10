@@ -1,0 +1,7 @@
+<% if params[:category].present? %>
+  <%= render "form" %>
+<% elsif params[:transaction_type].present? %>
+  <%= render "select_category" %>
+<% else %>
+  <%= render "select_type" %>
+<% end %>

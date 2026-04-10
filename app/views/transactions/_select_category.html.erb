@@ -1,0 +1,32 @@
+
+<div class="home-container">
+  <div class="home-header">
+    <p class="home-subtitle">Dashboard</p>
+    <h1>Select Category</h1>
+  </div>
+
+  <div class="home-nav">
+    <%= link_to new_transaction_path(transaction_type: 'income'), class: "nav-card" do %>
+      <div class="nav-card-content">
+        <div class="nav-card-icon nav-card-icon--blue">
+          <%# your icon here %>
+        </div>
+        <div>
+          <p class="nav-card-title">Income</p>
+        </div>
+      </div>
+    <% end %>
+
+
+    <%= link_to new_transaction_path(transaction_type: 'expense'), class: "nav-card" do %>
+      <div class="nav-card-content">
+        <div class="nav-card-icon nav-card-icon--green">
+          <%# your icon here %>
+        </div>
+        <div>
+          <p class="nav-card-title">Expense</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
