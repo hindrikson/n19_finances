@@ -25,11 +25,7 @@ class RoomTransactionChecker
   end
 
   def self.all_rooms(year, month)
-    results = []
-    Room.find_each do |room|
-      results << new(room, year, month).call.description
-    end
-    return results
+    Room.find_each.map { |room| new(room, year, month).call }
   end
 
   private

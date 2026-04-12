@@ -9,9 +9,11 @@ class TransactionsChecker
   end
 
   def self.transactions_sum
-    income = Transaction.where(transaction_type: "income").sum(:amount).round(2)
-    expense = Transaction.where(transaction_type: "expense").sum(:amount).round(2)
-    (income - expense).round(2)
+    (self.income - expense).round(2)
+  end
+
+  def self.balanced?
+    self.difference.abs < 0.01
   end
 
   def self.checker(date, account_state)
@@ -31,6 +33,14 @@ class TransactionsChecker
     BufferEntry.where(date: date.beginning_of_month..date.end_of_month).destroy_all
     MonthlyCheck.where(month: date.beginning_of_month..date.end_of_month).destroy_all
     puts "Cleared all entries for #{date.strftime("%B %Y")}"
+  end
+
+  def self.income
+    income = Transaction.where(transaction_type: "income").sum(:amount).round(2)
+  end
+
+  def self.expense
+    expense = Transaction.where(transaction_type: "expense").sum(:amount).round(2)
   end
 
 

@@ -152,9 +152,6 @@ BufferEntry.create(
   description: "default payment"
 )
 
-
-
-
 # ================================
 # Montly check
 # ================================
@@ -176,11 +173,11 @@ puts "Remaining: #{TransactionsChecker.remaining}"
 
 puts "Account sum: #{TransactionsChecker.transactions_sum}"
 
+# Create markdown report
+MonthlySummary.new(income_date, 13777.9).to_markdown
+
 # Account state
 TransactionsChecker.checker(income_date, 13777.9)
-
-
-
 
 # check = MonthlyCheck.create(month: income_date, account_state: 13726.89)
 
