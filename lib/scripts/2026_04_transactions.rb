@@ -68,6 +68,9 @@ Transaction.create(
 )
 
 
+
+
+
 # ================================
 # EXPENSES TRANSACTIONS
 # ================================
@@ -151,13 +154,33 @@ BufferEntry.create(
 
 
 
+
 # ================================
 # Montly check
 # ================================
-check = MonthlyCheck.create(
-  month: income_date,
-  account_state: 13726.89
-)
-check.save_markdown!
+# check = MonthlyCheck.create(
+#   month: income_date,
+#   account_state: 13726.89
+# )
+# check.save_markdown!
 
+# Run Checks and summaries
+puts RoomTransactionChecker.all_rooms(2026, 4)
+
+# Buffers Summary
+puts BufferSummary.categories_totals
+puts "Buffers sum: #{BufferSummary.sum_all}"
+
+# Remaining
+puts "Remaining: #{TransactionsChecker.remaining}"
+
+puts "Account sum: #{TransactionsChecker.transactions_sum}"
+
+# Account state
+TransactionsChecker.checker(income_date, 13777.9)
+
+
+
+
+# check = MonthlyCheck.create(month: income_date, account_state: 13726.89)
 

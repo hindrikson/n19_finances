@@ -41,5 +41,4 @@ class MonthlyCheck < ApplicationRecord
     (income - expense).round(2)
   end
 
-
 end
