@@ -123,7 +123,7 @@ class MonthlySummary
   end
 
   def save_markdown!
-    filename = "report_#{month.strftime("%Y_%m")}.md"
+    filename = "report_#{@date.strftime("%Y_%m")}.md"
     path = Rails.root.join("lib", "reports", filename)
     FileUtils.mkdir_p(Rails.root.join("lib", "reports"))
     File.write(path, to_markdown)

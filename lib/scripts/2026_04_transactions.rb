@@ -174,7 +174,7 @@ puts "Remaining: #{TransactionsChecker.remaining}"
 puts "Account sum: #{TransactionsChecker.transactions_sum}"
 
 # Create markdown report
-MonthlySummary.new(income_date, 13777.9).to_markdown
+MonthlySummary.new(income_date, 13777.9).save_markdown!
 
 # Account state
 TransactionsChecker.checker(income_date, 13777.9)
