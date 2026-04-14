@@ -10,6 +10,7 @@ def create_rent_transacion(name, income_date, amount)
   flatmate = Flatmate.all.find_by(name: name)
   if flatmate
     Transaction.create(
+      name: flatmate.room.name,
       flatmate: flatmate.name,
       transaction_type: "income",
       date: income_date,
