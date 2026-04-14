@@ -6,10 +6,6 @@ year = 2026
 income_date = Date.new(year, month, 10)
 expense_date = Date.new(year, month, 15)
 
-rooms = Room.all
-buffers = BufferCategories::CATEGORIES
-expenses = ExpenseCategories::CATEGORIES
-
 def create_rent_transacion(name, income_date, amount)
   flatmate = Flatmate.all.find_by(name: name)
   if flatmate
@@ -164,20 +160,18 @@ BufferEntry.create(
 # Run Checks and summaries
 puts RoomTransactionChecker.all_rooms(2026, 4)
 
-# Buffers Summary
-puts BufferSummary.categories_totals
-puts "Buffers sum: #{BufferSummary.sum_all}"
+transactions_checker = TransactionsChecker.new(income_date, 13777.9)
 
 # Remaining
-puts "Remaining: #{TransactionsChecker.remaining}"
+puts "Remaining: #{transactions_checker.remaining}"
 
-puts "Account sum: #{TransactionsChecker.transactions_sum}"
+puts "Account sum: #{transactions_checker.transactions_sum}"
 
 # Create markdown report
 MonthlySummary.new(income_date, 13777.9).save_markdown!
 
 # Account state
-TransactionsChecker.checker(income_date, 13777.9)
+transactions_checker.checker
 
 # check = MonthlyCheck.create(month: income_date, account_state: 13726.89)
 

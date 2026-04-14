@@ -7,35 +7,22 @@ class MonthlySummary
   
   BUFFER_CATEGORIES = BufferCategories::CATEGORIES
 
-  def income_transactions
-    Transaction.where(date: @date_range, transaction_type: "income")
-  end
-
-  def expense_transactions
-    Transaction.where(date: @date_range, transaction_type: "expense")
-  end
-
-  def buffer_entries_for_month
-    BufferEntry.where(date: @date_range)
-  end
-
-  def buffer_sum_all
-    BufferSummary.sum_all
-  end
-
-  def remaining
-    TransactionsChecker.remaining
-  end
-
-  def transactions_sum
-    TransactionsChecker.transactions_sum
-  end
-
-  def balanced?
-    TransactionsChecker.difference(@account_state) > 0.01
-  end
-  
   def to_markdown
+    transaction_checker = TransactionsChecker.new(@date, @account_state)
+
+    # Monthy transactions
+    month_income_transactions = transaction_checker.month_income_transactions
+    month_expense_transactions = transaction_checker.month_expense_transactions
+
+    # Buffer monthly transactions
+    month_buffer_transactions = transaction_checker.month_buffer_transactions
+    buffers_sum = transaction_checker.buffers_sum
+
+    # total checks
+    remaining = transaction_checker.remaining
+    transactions_sum = transaction_checker.transactions_sum
+    balanced = transaction_checker.balanced?
+    difference = transaction_checker.difference
 
     md = []
     md << "# Monthly Report — #{@date.strftime("%B %Y")}"
@@ -48,9 +35,9 @@ class MonthlySummary
     md << "|---|---|"
     md << "| Account State | #{@account_state} |"
     md << "| Transactions Sum | #{transactions_sum} |"
-    md << "| Difference | #{TransactionsChecker.difference(@account_state)} |"
-    md << "| Balanced | #{balanced? ? "✅ Yes" : "❌ No"} |"
-    md << "| Buffers Sum | #{buffer_sum_all} |"
+    md << "| Difference | #{difference} |"
+    md << "| Balanced | #{balanced ? "✅ Yes" : "❌ No"} |"
+    md << "| Buffers Sum | #{buffers_sum} |"
     md << "| Remaining | #{remaining} |"
     md << ""
 
@@ -69,11 +56,11 @@ class MonthlySummary
     md << ""
     md << "| Name | Date | Amount | Description |"
     md << "|------|------|--------|-------------|"
-    income_transactions.each do |t|
+    month_income_transactions.each do |t|
       md << "| #{t.name} | #{t.date} | #{t.amount} | #{t.description} |"
     end
     md << ""
-    md << "**Total Income: #{income_transactions.sum(:amount).round(2)}**"
+    md << "**Total Income: #{month_income_transactions.sum(:amount).round(2)}**"
     md << ""
 
     # ================================
@@ -81,11 +68,11 @@ class MonthlySummary
     md << ""
     md << "| Name | Date | Amount | Category | Description |"
     md << "|------|------|--------|----------|-------------|"
-    expense_transactions.each do |t|
+    month_expense_transactions.each do |t|
       md << "| #{t.name} | #{t.date} | #{t.amount} | #{t.category} | #{t.description} |"
     end
     md << ""
-    md << "**Total Expenses: #{expense_transactions.sum(:amount)}**"
+    md << "**Total Expenses: #{month_expense_transactions.sum(:amount)}**"
     md << ""
 
     # ================================
@@ -93,7 +80,7 @@ class MonthlySummary
     md << ""
     md << "| Name | Date | Amount | Type | Category | Description |"
     md << "|------|------|--------|------|----------|-------------|"
-    buffer_entries_for_month.each do |b|
+    month_buffer_transactions.each do |b|
       md << "| #{b.name} | #{b.date} | #{b.amount} | #{b.transaction_type} | #{b.category} | #{b.description} |"
     end
     md << ""
@@ -104,15 +91,15 @@ class MonthlySummary
     md << "| Category | Total |"
     md << "|----------|-------|"
     BUFFER_CATEGORIES.each do |cat|
-      md << "| #{cat} | #{BufferSummary.category_total(cat)} |"
+      md << "| #{cat} | #{transaction_checker.buffer_category_sum(cat)} |"
     end
     md << ""
 
-    total_with_remainder = buffer_sum_all + remaining
+    total_with_remainder = buffers_sum + remaining
 
     md << "**Remainder: #{remaining}**"
     md << ""
-    md << "**Total Buffers: #{buffer_sum_all}**"
+    md << "**Total Buffers: #{buffers_sum}**"
     md << ""
     md << "**Total Buffers + Remainder: #{total_with_remainder}**"
     md << ""
