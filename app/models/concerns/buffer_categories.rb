@@ -6,5 +6,6 @@ module BufferCategories
     groceries_buffer
     reserve_buffer
     deposit_buffer
+    maintenance_buffer
   ].freeze
 end
