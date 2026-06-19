@@ -185,7 +185,7 @@ puts "Account sum: #{transactions_checker.transactions_sum}"
 MonthlySummary.new(income_date, 7305.42).save_markdown!
 
 # Account state
-transactions_checker.checker
+# transactions_checker.checker
 
 # check = MonthlyCheck.create(month: income_date, account_state: 13726.89)
 
