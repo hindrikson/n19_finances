@@ -7,6 +7,5 @@ module BufferCategories
     reserve_buffer
     deposit_buffer
     maintenance_buffer
-    general_buffer
   ].freeze
 end

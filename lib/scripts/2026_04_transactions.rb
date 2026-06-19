@@ -158,7 +158,7 @@ BufferEntry.create(
   name: "general_buffer",
   date: income_date,
   amount: 950.02,
-  category: "general_buffer",
+  category: "maintenance_buffer",
   description: "default payment"
 )
 
