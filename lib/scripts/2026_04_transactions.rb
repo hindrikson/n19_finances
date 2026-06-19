@@ -44,10 +44,10 @@ end
 # INCOME RENT TRANSACTIONS
 # ================================
 create_rent_transacion("Jonathan", income_date, 699.12)
-create_rent_transacion("Maren",    income_date, 160.0)
+create_rent_transacion("Maren",    income_date, 0.0)
 create_rent_transacion("Ruda",     income_date, 626.62)
 create_rent_transacion("Arce",     income_date, 437.81)
-create_rent_transacion("Nona",     income_date, 522.67)
+create_rent_transacion("Nona",     income_date, 0.0)
 create_rent_transacion("Tanja",    income_date, 554.01)
 create_rent_transacion("Viola",    income_date, 473.41)
 create_rent_transacion("Lisa",     income_date, 354.14)
@@ -57,11 +57,11 @@ create_rent_transacion("Ronny",    income_date, 491.32)
 # OTHER INCOME TRANSACTIONS
 # ================================
 Transaction.create(
-  name: "deposit",
+  name: "rent",
   transaction_type: "income",
   date: income_date,
-  amount: 726,
-  description: "Nona: deposit"
+  amount: 292.89,
+  description: "Tobias: why?"
 )
 
 
@@ -80,9 +80,9 @@ create_expense_transaction(name: "internet_bill", expense_date: expense_date,
                            amount: 54.0,
                            description: "Maren: internet Telekom")
 # GEZ Rundfunk
-create_expense_transaction(name: "gez", expense_date: expense_date,
-                           amount: 55.08,
-                           description: "Rundfunk (GEZ) fee")
+# create_expense_transaction(name: "gez", expense_date: expense_date,
+#                            amount: 55.08,
+#                            description: "Rundfunk (GEZ) fee")
 # wash machine (Jonathan: Leasing of the wash machine)
 create_expense_transaction(name: "wash_machine_bill", expense_date: expense_date,
                            amount: 14.99,
@@ -96,27 +96,31 @@ create_expense_transaction(name: "house_electricity_bill", expense_date: expense
                            amount: 200.0,
                            description: "Jonathan: house electricity Qcells")
 # rent (rent: Kai und Dirk Hannheiser
-create_expense_transaction(name: "rent", expense_date: expense_date,
-                           amount: 3335.0,
-                           description: "rent: Kai und Dirk Hahnheiser")
+# create_expense_transaction(name: "rent", expense_date: expense_date,
+#                            amount: 3335.0,
+#                            description: "rent: Kai und Dirk Hahnheiser")
 # accout fees
 create_expense_transaction(name: "account_fees", expense_date: expense_date,
                            amount: 3.80,
                            description: "account fees")
+
+create_expense_transaction(name: "transfer_to_new_account", expense_date: expense_date,
+                           amount: 10000.0,
+                           description: "Transfer to Rudas new wg account")
 
 # ================================
 # BUFFER TRANSACTIONS
 # ================================
 
 # Splitwise
-Transaction.create(
-  transaction_type: "expense",
-  name: "groceries_buffer",
-  category: "groceries_buffer",
-  date: expense_date,
-  amount: 96.99,
-  description: "Hannes groceries"
-)
+# Transaction.create(
+#   transaction_type: "expense",
+#   name: "groceries_buffer",
+#   category: "groceries_buffer",
+#   date: expense_date,
+#   amount: 96.99,
+#   description: "Hannes groceries"
+# )
 
 # ================================
 # FIX BUFFERS ENTRIES
@@ -149,6 +153,15 @@ BufferEntry.create(
   description: "default payment"
 )
 
+BufferEntry.create(
+  transaction_type: "income",
+  name: "general_buffer",
+  date: income_date,
+  amount: 950.02,
+  category: "general_buffer",
+  description: "default payment"
+)
+
 # ================================
 # Montly check
 # ================================
@@ -161,7 +174,7 @@ BufferEntry.create(
 # Run Checks and summaries
 puts RoomTransactionChecker.all_rooms(2026, 4)
 
-transactions_checker = TransactionsChecker.new(income_date, 13777.9)
+transactions_checker = TransactionsChecker.new(income_date, 7305.42)
 
 # Remaining
 puts "Remaining: #{transactions_checker.remaining}"
@@ -169,7 +182,7 @@ puts "Remaining: #{transactions_checker.remaining}"
 puts "Account sum: #{transactions_checker.transactions_sum}"
 
 # Create markdown report
-MonthlySummary.new(income_date, 13777.9).save_markdown!
+MonthlySummary.new(income_date, 7305.42).save_markdown!
 
 # Account state
 transactions_checker.checker
