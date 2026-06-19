@@ -104,7 +104,7 @@ create_expense_transaction(name: "account_fees", expense_date: expense_date,
                            amount: 3.80,
                            description: "account fees")
 
-create_expense_transaction(name: "transfer_to_new_account", expense_date: expense_date,
+create_expense_transaction(name: "other", expense_date: expense_date,
                            amount: 10000.0,
                            description: "Transfer to Rudas new wg account")
 
@@ -185,7 +185,7 @@ puts "Account sum: #{transactions_checker.transactions_sum}"
 MonthlySummary.new(income_date, 7305.42).save_markdown!
 
 # Account state
-# transactions_checker.checker
+transactions_checker.checker
 
 # check = MonthlyCheck.create(month: income_date, account_state: 13726.89)
 

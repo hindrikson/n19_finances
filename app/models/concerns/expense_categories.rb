@@ -8,5 +8,6 @@ module ExpenseCategories
     rent
     gez
     account_fees
+    other
   ].freeze
 end
