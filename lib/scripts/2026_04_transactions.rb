@@ -155,7 +155,7 @@ BufferEntry.create(
 
 BufferEntry.create(
   transaction_type: "income",
-  name: "general_buffer",
+  name: "maintenance_buffer",
   date: income_date,
   amount: 950.02,
   category: "maintenance_buffer",
