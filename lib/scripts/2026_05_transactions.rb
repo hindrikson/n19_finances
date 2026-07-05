@@ -49,9 +49,9 @@ create_rent_transacion("Maren",    income_date, 160.0) # ok
 create_rent_transacion("Ruda",     income_date, 626.62) # ok
 create_rent_transacion("Arce",     income_date, 437.81) # ok
 create_rent_transacion("Nona",     income_date, 522.67) # ok
-create_rent_transacion("Tanja",    income_date, 0.0)
+create_rent_transacion("Tanja",    income_date, 554.01) # ok
 create_rent_transacion("Viola",    income_date, 473.41) # ok
-create_rent_transacion("Lisa",     income_date, 0.0)
+create_rent_transacion("Lisa",     income_date, 354.14) # ok
 create_rent_transacion("Ronny",    income_date, 491.32) # ok
 
 # ================================
@@ -73,9 +73,9 @@ create_rent_transacion("Ronny",    income_date, 491.32) # ok
 # EXPENSES TRANSACTIONS
 # ================================
 # water (RheinEnergie)
-# create_expense_transaction(name: "water_bill", expense_date: expense_date,
-#                            amount: 49.0,
-#                            description: "RheinEnergie: monthly water bill")
+create_expense_transaction(name: "water_bill", expense_date: expense_date,
+                           amount: 49.0,
+                           description: "RheinEnergie: monthly water bill")
 # # internet (Telekom)
 # create_expense_transaction(name: "internet_bill", expense_date: expense_date,
 #                            amount: 54.0,
@@ -101,13 +101,13 @@ create_expense_transaction(name: "rent", expense_date: expense_date,
                            amount: 3335.0,
                            description: "rent: Kai und Dirk Hahnheiser")
 # accout fees
-# create_expense_transaction(name: "account_fees", expense_date: expense_date,
-#                            amount: 3.80,
-#                            description: "account fees")
+create_expense_transaction(name: "account_fees", expense_date: expense_date,
+                           amount: 3.80,
+                           description: "account fees")
 #
-# create_expense_transaction(name: "other", expense_date: expense_date,
-#                            amount: 10000.0,
-#                            description: "Transfer to Rudas new wg account")
+create_expense_transaction(name: "other", expense_date: expense_date,
+                           amount: 292.89,
+                           description: "Last month wrong transaction sent back to Tobi")
 
 # ================================
 # BUFFER TRANSACTIONS
@@ -182,9 +182,9 @@ BufferEntry.create(
 # check.save_markdown!
 
 # Run Checks and summaries
-puts RoomTransactionChecker.all_rooms(2026, 4)
+puts RoomTransactionChecker.all_rooms(year, month)
 
-transactions_checker = TransactionsChecker.new(income_date, 9273.01)
+transactions_checker = TransactionsChecker.new(income_date, 9273.01 + 7867.88)
 
 # Remaining
 puts "Remaining: #{transactions_checker.remaining}"
@@ -192,7 +192,7 @@ puts "Remaining: #{transactions_checker.remaining}"
 puts "Account sum: #{transactions_checker.transactions_sum}"
 
 # Create markdown report
-MonthlySummary.new(income_date, 9273.01).save_markdown!
+MonthlySummary.new(income_date, 9273.01 + 7867.88).save_markdown!
 
 # Account state
 transactions_checker.checker
