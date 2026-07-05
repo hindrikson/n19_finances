@@ -1,7 +1,7 @@
 # Run with: rails runner lib/scripts/seed_transactions.rb
 
 # MONTH
-month = 4
+month = 5
 year = 2026
 income_date = Date.new(year, month, 10)
 expense_date = Date.new(year, month, 15)
