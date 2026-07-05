@@ -57,13 +57,13 @@ create_rent_transacion("Ronny",    income_date, 491.32) # ok
 # ================================
 # OTHER INCOME TRANSACTIONS
 # ================================
-Transaction.create(
-  name: "rent",
-  transaction_type: "income",
-  date: income_date,
-  amount: 292.89,
-  description: "Tobias: why?"
-)
+# Transaction.create(
+#   name: "rent",
+#   transaction_type: "income",
+#   date: income_date,
+#   amount: 292.89,
+#   description: "Tobias: why?"
+# )
 
 
 
@@ -73,55 +73,64 @@ Transaction.create(
 # EXPENSES TRANSACTIONS
 # ================================
 # water (RheinEnergie)
-create_expense_transaction(name: "water_bill", expense_date: expense_date,
-                           amount: 49.0,
-                           description: "RheinEnergie: monthly water bill")
-# internet (Telekom)
-create_expense_transaction(name: "internet_bill", expense_date: expense_date,
-                           amount: 54.0,
-                           description: "Maren: internet Telekom")
-# GEZ Rundfunk
-# create_expense_transaction(name: "gez", expense_date: expense_date,
-#                            amount: 55.08,
-#                            description: "Rundfunk (GEZ) fee")
+# create_expense_transaction(name: "water_bill", expense_date: expense_date,
+#                            amount: 49.0,
+#                            description: "RheinEnergie: monthly water bill")
+# # internet (Telekom)
+# create_expense_transaction(name: "internet_bill", expense_date: expense_date,
+#                            amount: 54.0,
+#                            description: "Maren: internet Telekom")
+# # GEZ Rundfunk
+# # create_expense_transaction(name: "gez", expense_date: expense_date,
+# #                            amount: 55.08,
+# #                            description: "Rundfunk (GEZ) fee")
 # wash machine (Jonathan: Leasing of the wash machine)
 create_expense_transaction(name: "wash_machine_bill", expense_date: expense_date,
                            amount: 14.99,
                            description: "Jonathan: Leasing of the wash machine")
 # flat electricity (Jonathan: flat electricity (Naturstrom))
 create_expense_transaction(name: "flat_electricity_bill", expense_date: expense_date,
-                           amount: 29.0,
+                           amount: 31.0,
                            description: "Jonathan: flat electricity (Naturstrom)")
 # haus electricity (Jonathan: house electricity (Qcells))
 create_expense_transaction(name: "house_electricity_bill", expense_date: expense_date,
                            amount: 200.0,
                            description: "Jonathan: house electricity Qcells")
 # rent (rent: Kai und Dirk Hannheiser
-# create_expense_transaction(name: "rent", expense_date: expense_date,
-#                            amount: 3335.0,
-#                            description: "rent: Kai und Dirk Hahnheiser")
+create_expense_transaction(name: "rent", expense_date: expense_date,
+                           amount: 3335.0,
+                           description: "rent: Kai und Dirk Hahnheiser")
 # accout fees
-create_expense_transaction(name: "account_fees", expense_date: expense_date,
-                           amount: 3.80,
-                           description: "account fees")
-
-create_expense_transaction(name: "other", expense_date: expense_date,
-                           amount: 10000.0,
-                           description: "Transfer to Rudas new wg account")
+# create_expense_transaction(name: "account_fees", expense_date: expense_date,
+#                            amount: 3.80,
+#                            description: "account fees")
+#
+# create_expense_transaction(name: "other", expense_date: expense_date,
+#                            amount: 10000.0,
+#                            description: "Transfer to Rudas new wg account")
 
 # ================================
 # BUFFER TRANSACTIONS
 # ================================
 
 # Splitwise
-# Transaction.create(
-#   transaction_type: "expense",
-#   name: "groceries_buffer",
-#   category: "groceries_buffer",
-#   date: expense_date,
-#   amount: 96.99,
-#   description: "Hannes groceries"
-# )
+Transaction.create(
+  transaction_type: "expense",
+  name: "groceries_buffer",
+  category: "groceries_buffer",
+  date: expense_date,
+  amount: 321.69,
+  description: "Viola groceries"
+)
+
+Transaction.create(
+  transaction_type: "expense",
+  name: "groceries_buffer",
+  category: "groceries_buffer",
+  date: expense_date,
+  amount: 235.26,
+  description: "Ruda groceries"
+)
 
 # ================================
 # FIX BUFFERS ENTRIES
@@ -175,7 +184,7 @@ BufferEntry.create(
 # Run Checks and summaries
 puts RoomTransactionChecker.all_rooms(2026, 4)
 
-transactions_checker = TransactionsChecker.new(income_date, 7305.42)
+transactions_checker = TransactionsChecker.new(income_date, 9273.01)
 
 # Remaining
 puts "Remaining: #{transactions_checker.remaining}"
@@ -183,7 +192,7 @@ puts "Remaining: #{transactions_checker.remaining}"
 puts "Account sum: #{transactions_checker.transactions_sum}"
 
 # Create markdown report
-MonthlySummary.new(income_date, 7305.42).save_markdown!
+MonthlySummary.new(income_date, 9273.01).save_markdown!
 
 # Account state
 transactions_checker.checker

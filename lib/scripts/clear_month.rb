@@ -1,4 +1,4 @@
-month = Date.new(2026, 4, 1)
+month = Date.new(2026, 5, 1)
 
 Transaction.where(date: month.beginning_of_month..month.end_of_month).destroy_all
 BufferEntry.where(date: month.beginning_of_month..month.end_of_month).destroy_all
