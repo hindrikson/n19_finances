@@ -105,9 +105,9 @@ create_expense_transaction(name: "account_fees", expense_date: expense_date,
                            amount: 3.80,
                            description: "account fees")
 
-create_expense_transaction(name: "other", expense_date: expense_date,
-                           amount: 10000.0,
-                           description: "Transfer to Rudas new wg account")
+# create_expense_transaction(name: "other", expense_date: expense_date,
+#                            amount: 10000.0,
+#                            description: "Transfer to Rudas new wg account")
 
 # ================================
 # BUFFER TRANSACTIONS
@@ -175,7 +175,7 @@ BufferEntry.create(
 # Run Checks and summaries
 puts RoomTransactionChecker.all_rooms(2026, 4)
 
-transactions_checker = TransactionsChecker.new(income_date, 7305.42)
+transactions_checker = TransactionsChecker.new(income_date, 7305.42 + 10000.0)
 
 # Remaining
 puts "Remaining: #{transactions_checker.remaining}"
@@ -183,7 +183,7 @@ puts "Remaining: #{transactions_checker.remaining}"
 puts "Account sum: #{transactions_checker.transactions_sum}"
 
 # Create markdown report
-MonthlySummary.new(income_date, 7305.42).save_markdown!
+MonthlySummary.new(income_date, 7305.42 + 10000).save_markdown!
 
 # Account state
 transactions_checker.checker
