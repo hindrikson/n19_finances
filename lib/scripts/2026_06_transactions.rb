@@ -173,14 +173,6 @@ BufferEntry.create(
   description: "default payment"
 )
 
-# ================================
-# Montly check
-# ================================
-# check = MonthlyCheck.create(
-#   month: income_date,
-#   account_state: 13726.89
-# )
-# check.save_markdown!
 
 # Run Checks and summaries
 puts RoomTransactionChecker.all_rooms(year, month)
