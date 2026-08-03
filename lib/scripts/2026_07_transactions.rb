@@ -99,7 +99,7 @@ Transaction.create(
   category: "deposit_buffer",
   date: income_date,
   amount: 800.0,
-  description: "Jonathan money for oil"
+  description: "Chimdi deposit"
 )
 
 
