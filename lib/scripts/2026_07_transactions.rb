@@ -72,7 +72,7 @@ end
 # ================================
 # INCOME RENT TRANSACTIONS
 # ================================
-create_rent_transacion("Chimdi",    income_date, 885.0)
+create_rent_transacion("Chimdi",    income_date, 885.08)
 create_rent_transacion("Maren",    income_date, 160.0)
 create_rent_transacion("Ruda",     income_date, 597.72)
 create_rent_transacion("Arce",     income_date, 477.49)
@@ -91,6 +91,15 @@ Transaction.create(
   date: income_date,
   amount: 295.84,
   description: "Nebenkonsten ruckzahlung from Hahnheiser"
+)
+
+Transaction.create(
+  transaction_type: "income",
+  name: "deposit",
+  category: "deposit_buffer",
+  date: income_date,
+  amount: 800.0,
+  description: "Jonathan money for oil"
 )
 
 
@@ -127,9 +136,9 @@ create_expense_transaction(name: "rent", expense_date: expense_date,
                            amount: 3335.0,
                            description: "rent: Kai und Dirk Hahnheiser")
 # accout fees
-create_expense_transaction(name: "account_fees", expense_date: expense_date,
-                           amount: 3.80,
-                           description: "account fees")
+# create_expense_transaction(name: "account_fees", expense_date: expense_date,
+#                            amount: 3.80,
+#                            description: "account fees")
 
 create_expense_transaction(name: "other", expense_date: expense_date,
                            amount: 726.0,
@@ -224,19 +233,11 @@ Transaction.create(
 )
 
 
+
 # ================================
 # BUFFER TRANSACTIONS
 # ================================
 
-
-BufferEntry.create(
-  transaction_type: "income",
-  name: "deposit_buffer",
-  date: income_date,
-  amount: 800.08,
-  category: "deposit_buffer",
-  description: "Chimdi deposit (Kaution)"
-)
 
 # ================================
 # REGULAR BUFFERS ENTRIES
