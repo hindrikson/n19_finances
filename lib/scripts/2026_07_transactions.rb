@@ -95,9 +95,10 @@ Transaction.create(
 Transaction.create(
   name: "Nebenkonsten ruckzahlung",
   transaction_type: "income",
+  category: "water_buffer",
   date: income_date,
   amount: 295.84,
-  description: "Nebenkonsten ruckzahlung from Hahnheiser"
+  description: "Nebenkonsten ruckzahlung from Hahnheiser (putting in water_buffer)"
 )
 
 Transaction.create(
