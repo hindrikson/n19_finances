@@ -171,9 +171,15 @@ create_expense_transaction(name: "other", expense_date: expense_date,
                            amount: 156.50,
                            description: "Deposit minus missing rent from November back to Ariane")
 
-create_expense_transaction(name: "other", expense_date: expense_date,
-                           amount: 101.78,
-                           description: "RheinEnergie charged us for water. Is it a payment more for last year?")
+
+Transaction.create(
+  transaction_type: "expense",
+  name: "water additional cost",
+  category: "water_buffer",
+  date: expense_date,
+  amount: 101.78,
+  description: "RheinEnergie charged us for water. Is it a payment more for last year?"
+)
 
 # Splitwise
 Transaction.create(
@@ -227,7 +233,7 @@ Transaction.create(
   category: "groceries_buffer",
   date: expense_date,
   amount: 8.40,
-  description: "Nona groceries"
+  description: "Jonathan groceries"
 )
 
 Transaction.create(
