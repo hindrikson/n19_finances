@@ -73,7 +73,6 @@ end
 # INCOME RENT TRANSACTIONS
 # ================================
 create_rent_transacion("Chimdi",    income_date, 885.08)
-create_rent_transacion("Maren",    income_date, 160.0)
 create_rent_transacion("Ruda",     income_date, 597.72)
 create_rent_transacion("Arce",     income_date, 477.49)
 create_rent_transacion("Nona",     income_date, 524.09)
@@ -85,6 +84,14 @@ create_rent_transacion("Jonathan",    income_date, 491.47)
 # ================================
 # OTHER INCOME TRANSACTIONS
 # ================================
+Transaction.create(
+  name: "Maren wrong rent payment",
+  transaction_type: "income",
+  date: income_date,
+  amount: 160.0,
+  description: "Maren payed 160 wrongly since from July onwards she does not live in the house anymore."
+)
+
 Transaction.create(
   name: "Nebenkonsten ruckzahlung",
   transaction_type: "income",
@@ -146,7 +153,7 @@ create_expense_transaction(name: "other", expense_date: expense_date,
 
 create_expense_transaction(name: "other", expense_date: expense_date,
                            amount: 160.0,
-                           description: "Maren payed 160 to the account in July from when she is not a flatmate anymore.")
+                           description: "Miete from July (160) back to Maren.")
 
 create_expense_transaction(name: "other", expense_date: expense_date,
                            amount: 40.0,
@@ -164,7 +171,7 @@ create_expense_transaction(name: "other", expense_date: expense_date,
                            amount: 156.50,
                            description: "Deposit minus missing rent from November back to Ariane")
 
-create_expense_transaction(name: "water", expense_date: expense_date,
+create_expense_transaction(name: "other", expense_date: expense_date,
                            amount: 101.78,
                            description: "RheinEnergie charged us for water. Is it a payment more for last year?")
 
