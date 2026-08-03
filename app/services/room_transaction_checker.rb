@@ -53,7 +53,7 @@ class RoomTransactionChecker
   end
 
   def difference
-    sum - due
+    (sum - due).round(2)
   end
 
   def match?
