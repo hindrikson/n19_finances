@@ -7,7 +7,7 @@ class MonthlySummary
   
   BUFFER_CATEGORIES = BufferCategories::CATEGORIES
 
-  BUFFERS_TO_KEEP = %w[reserve_buffer maintenance_buffer].freeze
+  BUFFERS_TO_KEEP = %w[reserve_buffer maintenance_buffer deposit_buffer].freeze
 
   def to_markdown
     transaction_checker = TransactionsChecker.new(@date, @account_state)
