@@ -7,6 +7,8 @@ class MonthlySummary
   
   BUFFER_CATEGORIES = BufferCategories::CATEGORIES
 
+  BUFFERS_TO_KEEP = %w[reserve_buffer maintenance_buffer].freeze
+
   def to_markdown
     transaction_checker = TransactionsChecker.new(@date, @account_state)
 
@@ -16,10 +18,18 @@ class MonthlySummary
 
     # Buffer monthly transactions
     month_buffer_transactions = transaction_checker.month_buffer_transactions
-    buffers_sum = transaction_checker.buffers_sum
+    buffers_sum = BUFFER_CATEGORIES.select { |cat| BUFFERS_TO_KEEP.include?(cat) }.sum do |cat|
+      transaction_checker.buffer_category_sum(cat)
+    end.round(2)
+
+    buffers_to_zero = BUFFER_CATEGORIES - BUFFERS_TO_KEEP
+    buffers_to_zero_sum = buffers_to_zero.sum do |cat|
+      transaction_checker.buffer_category_sum(cat)
+    end.round(2)
+
+    remaining = transaction_checker.remaining + buffers_to_zero_sum
 
     # total checks
-    remaining = transaction_checker.remaining
     transactions_sum = transaction_checker.transactions_sum
     balanced = transaction_checker.balanced?
     difference = transaction_checker.difference
@@ -91,7 +101,11 @@ class MonthlySummary
     md << "| Category | Total |"
     md << "|----------|-------|"
     BUFFER_CATEGORIES.each do |cat|
-      md << "| #{cat} | #{transaction_checker.buffer_category_sum(cat)} |"
+      if BUFFERS_TO_KEEP.include?(cat)
+        md << "| #{cat} | #{transaction_checker.buffer_category_sum(cat)} |"
+      else
+        md << "| #{cat} | 0.0 |"
+      end
     end
     md << ""
 
